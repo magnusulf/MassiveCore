@@ -1220,10 +1220,10 @@ public class InventoryUtil
 		List<String> lore = getLore(item);
 		if (lore == null) return false;
 
-		List<String> newLore = lore.stream().filter(predicate).collect(Collectors.toList());
+		List<String> newLore = lore.stream().filter((line) -> !predicate.test(line)).collect(Collectors.toList());
 		if (lore.size() != newLore.size())
 		{
-			setLore(item, lore);
+			setLore(item, newLore);
 			return true;
 		}
 
