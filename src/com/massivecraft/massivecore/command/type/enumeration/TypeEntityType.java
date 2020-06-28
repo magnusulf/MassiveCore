@@ -27,12 +27,17 @@ public class TypeEntityType extends TypeEnum<EntityType>
 	{
 		Set<String> ret = new MassiveSet<>(super.getNamesInner(value));
 		
-		if (value == EntityType.PIG_ZOMBIE)
+		if (value == EntityType.ZOMBIFIED_PIGLIN)
 		{
-			ret.add("pigman");
 			ret.add("pigzombie");
-			ret.add("manpig");
 			ret.add("zombiepig");
+			ret.add("zombiepiglin");
+		}
+		else if (value == EntityType.PIGLIN)
+		{
+			ret.add("piglin");
+			ret.add("manpig");
+			ret.add("pigman");
 		}
 		
 		return ret;
