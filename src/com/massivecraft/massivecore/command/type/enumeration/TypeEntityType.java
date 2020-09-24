@@ -30,14 +30,13 @@ public class TypeEntityType extends TypeEnum<EntityType>
 		if (value == EntityType.ZOMBIFIED_PIGLIN)
 		{
 			ret.add("zombiepig");
+			ret.add("pigzombie");
 		}
 		else if (value == EntityType.PIGLIN)
 		{
-			ret.add("pigman");
-			ret.add("pigzombie");
+			ret.add("pigman"); //RIP
 			ret.add("manpig");
 		}
-		
 		return ret;
 	}
 
