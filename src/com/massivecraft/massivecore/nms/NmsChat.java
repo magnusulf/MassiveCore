@@ -17,6 +17,7 @@ public class NmsChat extends Mixin
 	// -------------------------------------------- //
 	
 	private static NmsChat d = new NmsChat().setAlternatives(
+		NmsChat116R2.class,
 		NmsChat112R1P.class,
 		NmsChat18R2P.class,
 		NmsChat18R1.class,
