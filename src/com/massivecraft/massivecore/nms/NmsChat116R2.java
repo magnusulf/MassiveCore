@@ -80,7 +80,7 @@ public class NmsChat116R2 extends NmsChatAbstract
 			Player player = (Player)sendee;
 			String raw = mson.toRaw();
 			Object component = toComponent(raw);
-			Object packet = ReflectionUtil.invokeConstructor(this.constructorPacketPlayOutChat, component, this.instanceChatMessageTypeChatInfo, player.getUniqueId());//??? which typegameinfo?
+			Object packet = ReflectionUtil.invokeConstructor(this.constructorPacketPlayOutChat, component, this.instanceChatMessageTypeChatInfo, player.getUniqueId());
 			NmsBasics.get().sendPacket(player, packet);
 		}
 		else
