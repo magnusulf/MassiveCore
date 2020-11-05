@@ -52,15 +52,15 @@ public class NmsChat116R2 extends NmsChatAbstract
 			else if (e.name().equalsIgnoreCase("TIMES")) this.enumEnumTitleActionTimes = e;
 		}
 
-		this.classIChatBaseComponent = PackageType.MINECRAFT_SERVER.getClass("IChatBaseComponent");//good
+		this.classIChatBaseComponent = PackageType.MINECRAFT_SERVER.getClass("IChatBaseComponent");
 
 		// Get title packet and it's constructor
-		this.classPacketPlayOutTitle = PackageType.MINECRAFT_SERVER.getClass("PacketPlayOutTitle");//good
+		this.classPacketPlayOutTitle = PackageType.MINECRAFT_SERVER.getClass("PacketPlayOutTitle");
 		this.constructorPacketPlayOutTitle = ReflectionUtil.getConstructor(this.classPacketPlayOutTitle, this.classEnumTitleAction, this.classIChatBaseComponent);
 		this.constructorPacketPlayOutTitleTimes = ReflectionUtil.getConstructor(this.classPacketPlayOutTitle, this.classEnumTitleAction, this.classIChatBaseComponent, int.class, int.class, int.class);
 
 		// Get Chat packet and it's constructor
-		this.classPacketPlayOutChat = PackageType.MINECRAFT_SERVER.getClass("PacketPlayOutChat");//?
+		this.classPacketPlayOutChat = PackageType.MINECRAFT_SERVER.getClass("PacketPlayOutChat");
 		this.constructorPacketPlayOutChat = ReflectionUtil.getConstructor(this.classPacketPlayOutChat, this.classIChatBaseComponent, this.classChatMessageType, this.classUUID);
 		this.constructorPacketPlayOutChatType = ReflectionUtil.getConstructor(this.classPacketPlayOutChat, this.classIChatBaseComponent, this.classChatMessageType, this.classUUID);
 	}
