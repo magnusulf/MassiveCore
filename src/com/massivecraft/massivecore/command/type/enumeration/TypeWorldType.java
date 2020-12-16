@@ -32,10 +32,6 @@ public class TypeWorldType extends TypeEnum<WorldType>
 			ret.add("normal");
 			ret.add("default");
 		}
-		else if (value == WorldType.VERSION_1_1)
-		{
-			ret.add("11");
-		}
 		
 		return ret;
 	}
