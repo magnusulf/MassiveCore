@@ -1,13 +1,17 @@
 package com.massivecraft.massivecore.nms;
 
+import com.massivecraft.massivecore.MassiveCore;
 import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.mixin.Mixin;
 import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.Txt;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 
 public class NmsChat extends Mixin
@@ -38,9 +42,18 @@ public class NmsChat extends Mixin
 	{
 		CommandSender sendee = IdUtil.getSender(sendeeObject);
 		if (sendee == null) return;
-		
-		String plain = mson.toPlain(true);
-		sendChatPlain(sendee, plain);
+
+		Player player = IdUtil.getPlayer(sendee);
+		if (player != null)
+		{
+			BaseComponent[] bc = ComponentSerializer.parse(mson.toRaw());
+			player.spigot().sendMessage(bc);
+		}
+		else
+		{
+			String plain = mson.toPlain(true);
+			sendChatPlain(sendee, plain);
+		}
 	}
 	
 	public void sendChatPlain(Object sendeeObject, String plain) {
@@ -61,15 +74,18 @@ public class NmsChat extends Mixin
 	
 	public void sendTitleRaw(Object sendeeObject, int ticksIn, int ticksStay, int ticksOut, String rawMain, String rawSub)
 	{
+		Mson msonMain = MassiveCore.gson.fromJson(rawMain, Mson.class);
+		Mson msonSub = MassiveCore.gson.fromJson(rawSub, Mson.class);
 
+		sendTitleMson(sendeeObject, ticksIn, ticksStay, ticksOut, msonMain, msonSub);
 	}
 	
 	public void sendTitleMson(Object sendeeObject, int ticksIn, int ticksStay, int ticksOut, Mson msonMain, Mson msonSub)
 	{
-		String rawMain = msonMain.toRaw();
-		String rawSub = msonSub.toRaw();
-		
-		this.sendTitleRaw(sendeeObject, ticksIn, ticksStay, ticksOut, rawMain, rawSub);
+		String messageMain = msonMain.toPlain(true);
+		String messageSub = msonSub.toPlain(true);
+
+		this.sendTitleRaw(sendeeObject, ticksIn, ticksStay, ticksOut, messageMain, messageSub);
 	}
 	
 	public void sendTitleMessage(Object sendeeObject, int ticksIn, int ticksStay, int ticksOut, String messageMain, String messageSub)
@@ -78,10 +94,10 @@ public class NmsChat extends Mixin
 		if (messageMain == null) messageMain = "";
 		if (messageSub == null) messageSub = "";
 
-		String rawMain = messageToRaw(messageMain);
-		String rawSub = messageToRaw(messageSub);
-		
-		this.sendTitleRaw(sendeeObject, ticksIn, ticksStay, ticksOut, rawMain, rawSub);
+		Player player = IdUtil.getPlayer(sendeeObject);
+		if (sendeeObject == null) return;
+
+		player.sendTitle(messageMain, messageSub, ticksIn, ticksStay, ticksOut);
 	}
 	
 	public void sendTitleMsg(Object sendeeObject, int ticksIn, int ticksStay, int ticksOut, String msgMain, String msgSub)
@@ -98,7 +114,10 @@ public class NmsChat extends Mixin
 	
 	public void sendActionbarRaw(Object sendeeObject, String raw)
 	{
-		
+		Player player = IdUtil.getPlayer(sendeeObject);
+		if (sendeeObject == null) return;
+
+
 	}
 	
 	public void sendActionbarMson(Object sendeeObject, Mson mson)
