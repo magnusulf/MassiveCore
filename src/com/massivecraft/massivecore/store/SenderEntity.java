@@ -217,6 +217,13 @@ public abstract class SenderEntity<E extends SenderEntity<E>> extends Entity<E> 
 	{
 		return MixinPlayed.get().getIp(this.getIdOrThrow());
 	}
+
+	public String getIpOrThrow()
+	{
+		String ip = this.getIp();
+		if (ip == null) throw new NullPointerException("ip");
+		return ip;
+	}
 	
 	public boolean isVisible()
 	{
