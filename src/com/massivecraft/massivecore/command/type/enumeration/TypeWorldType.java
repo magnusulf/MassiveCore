@@ -32,6 +32,10 @@ public class TypeWorldType extends TypeEnum<WorldType>
 			ret.add("normal");
 			ret.add("default");
 		}
+		else if (value == WorldType.AMPLIFIED)
+		{
+			ret.add("amplified");
+		}
 		
 		return ret;
 	}
